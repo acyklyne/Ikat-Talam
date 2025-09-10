@@ -23,6 +23,7 @@ const navLinks = [
   { href: '/gallery', label: 'Gallery' },
   { href: '/donate', label: 'Donate' },
   { href: '/contact', label: 'Contact' },
+  { href: '/admin', label: 'Admin' },
 ];
 
 const aiToolsLinks = [

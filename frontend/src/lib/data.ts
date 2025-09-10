@@ -27,7 +27,17 @@ export interface IGalleryItem {
   aiHint: string;
 }
 
-export const products: IProduct[] = [
+export interface IOrder {
+  id: number;
+  customerName: string;
+  email: string;
+  items: { productId: number; quantity: number }[];
+  total: number;
+  status: 'pending' | 'shipped' | 'delivered';
+  date: string;
+}
+
+export let products: IProduct[] = [
   {
     id: 1,
     name: 'Kalinga Woven Traditional Dress',
@@ -90,7 +100,7 @@ export const products: IProduct[] = [
   },
 ];
 
-export const stories: IStory[] = [
+export let stories: IStory[] = [
   {
     id: 1,
     title: 'The Whispering Loom of Kalinga',
@@ -119,7 +129,7 @@ export const stories: IStory[] = [
   },
 ];
 
-export const galleryItems: IGalleryItem[] = [
+export let galleryItems: IGalleryItem[] = [
   { id: 1, title: 'A moutain view in Cordillera', description: '', imageUrl: '/images/g1.png', aiHint: 'weaving hands' },
   { id: 2, title: "Foggy Night at Baguio's Iconic Cathedral", description: '', imageUrl: '/images/g2.png', aiHint: 'natural dyes' },
   { id: 3, title: 'Woman Wearing Traditional Costume on a Street', description: '', imageUrl: '/images/g3.png', aiHint: 'traditional hut' },
@@ -132,3 +142,97 @@ export const galleryItems: IGalleryItem[] = [
   { id: 10, title: 'Festival Dance', description: '',  imageUrl: '/images/g10.png', aiHint: 'comsdw' },
   { id: 11, title: 'Mountain View ', description: '',  imageUrl: '/images/g11.png', aiHint: 'gathering' },
 ];
+
+export let orders: IOrder[] = [
+  {
+    id: 1,
+    customerName: 'John Doe',
+    email: 'john@example.com',
+    items: [
+      { productId: 1, quantity: 1 },
+      { productId: 2, quantity: 2 },
+    ],
+    total: 1458.0,
+    status: 'pending',
+    date: '2023-10-01',
+  },
+  {
+    id: 2,
+    customerName: 'Jane Smith',
+    email: 'jane@example.com',
+    items: [
+      { productId: 3, quantity: 1 },
+    ],
+    total: 1299.0,
+    status: 'shipped',
+    date: '2023-09-28',
+  },
+];
+
+// Utility functions for Products
+export const addProduct = (product: Omit<IProduct, 'id'>) => {
+  const newId = Math.max(...products.map(p => p.id)) + 1;
+  products.push({ ...product, id: newId });
+};
+
+export const updateProduct = (id: number, updatedProduct: Partial<IProduct>) => {
+  const index = products.findIndex(p => p.id === id);
+  if (index !== -1) {
+    products[index] = { ...products[index], ...updatedProduct };
+  }
+};
+
+export const deleteProduct = (id: number) => {
+  products = products.filter(p => p.id !== id);
+};
+
+// Utility functions for Stories
+export const addStory = (story: Omit<IStory, 'id'>) => {
+  const newId = Math.max(...stories.map(s => s.id)) + 1;
+  stories.push({ ...story, id: newId });
+};
+
+export const updateStory = (id: number, updatedStory: Partial<IStory>) => {
+  const index = stories.findIndex(s => s.id === id);
+  if (index !== -1) {
+    stories[index] = { ...stories[index], ...updatedStory };
+  }
+};
+
+export const deleteStory = (id: number) => {
+  stories = stories.filter(s => s.id !== id);
+};
+
+// Utility functions for Gallery Items
+export const addGalleryItem = (item: Omit<IGalleryItem, 'id'>) => {
+  const newId = Math.max(...galleryItems.map(g => g.id)) + 1;
+  galleryItems.push({ ...item, id: newId });
+};
+
+export const updateGalleryItem = (id: number, updatedItem: Partial<IGalleryItem>) => {
+  const index = galleryItems.findIndex(g => g.id === id);
+  if (index !== -1) {
+    galleryItems[index] = { ...galleryItems[index], ...updatedItem };
+  }
+};
+
+export const deleteGalleryItem = (id: number) => {
+  galleryItems = galleryItems.filter(g => g.id !== id);
+};
+
+// Utility functions for Orders
+export const addOrder = (order: Omit<IOrder, 'id'>) => {
+  const newId = Math.max(...orders.map(o => o.id)) + 1;
+  orders.push({ ...order, id: newId });
+};
+
+export const updateOrder = (id: number, updatedOrder: Partial<IOrder>) => {
+  const index = orders.findIndex(o => o.id === id);
+  if (index !== -1) {
+    orders[index] = { ...orders[index], ...updatedOrder };
+  }
+};
+
+export const deleteOrder = (id: number) => {
+  orders = orders.filter(o => o.id !== id);
+};
