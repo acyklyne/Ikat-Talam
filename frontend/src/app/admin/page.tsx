@@ -173,7 +173,6 @@ export default function AdminPage() {
               {stories.map((story) => (
                 <TableRow key={story.id}>
                   <TableCell>{story.title}</TableCell>
-                  <TableCell>{story.author}</TableCell>
                   <TableCell>
                     <Button variant="ghost" size="icon" onClick={() => handleEdit(story)}>
                       <Edit className="h-4 w-4" />
