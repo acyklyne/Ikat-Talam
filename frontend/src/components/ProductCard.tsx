@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { IProduct } from '../lib/data';
@@ -11,12 +13,26 @@ import {
 } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
+import { useCart } from '../contexts/CartContext';
+import { useToast } from '../hooks/use-toast';
+import { useAuth } from '../contexts/AuthContext';
 
 type ProductCardProps = {
   product: IProduct;
 };
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+  const { user } = useAuth();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
   return (
     <Card className="overflow-hidden flex flex-col h-full group">
       <CardHeader className="p-0">
@@ -37,9 +53,14 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardContent>
       <CardFooter className="p-6 pt-0 flex justify-between items-center">
         <p className="text-xl font-semibold text-primary">${product.price.toFixed(2)}</p>
-        <Button asChild>
-          <Link href={`/products/${product.id}`}>View Details</Link>
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" asChild>
+            <Link href={`/products/${product.id}`}>View Details</Link>
+          </Button>
+          {user !== 'admin' && (
+            <Button onClick={handleAddToCart}>Add to Cart</Button>
+          )}
+        </div>
       </CardFooter>
     </Card>
   );
