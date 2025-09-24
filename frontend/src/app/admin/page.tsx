@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Button } from '../../components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog';
@@ -13,8 +14,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../../components/ui/alert-dialog';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import { products, stories, galleryItems, orders, addProduct, updateProduct, deleteProduct, addStory, updateStory, deleteStory, addGalleryItem, updateGalleryItem, deleteGalleryItem, addOrder, updateOrder, deleteOrder, IProduct, IStory, IGalleryItem, IOrder } from '../../lib/data';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function AdminPage() {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user !== 'admin') {
+      router.push('/login');
+    }
+  }, [user, router]);
+
+  if (user !== 'admin') {
+    return <div>Access denied. Please login as admin.</div>;
+  }
   const [activeTab, setActiveTab] = useState('products');
   const [editingItem, setEditingItem] = useState<any>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -165,7 +179,7 @@ export default function AdminPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Title</TableHead>
-                <TableHead>Author</TableHead>
+                <TableHead>Excerpt</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -173,7 +187,7 @@ export default function AdminPage() {
               {stories.map((story) => (
                 <TableRow key={story.id}>
                   <TableCell>{story.title}</TableCell>
-                  <TableCell>{story.author}</TableCell>
+                  <TableCell>{story.excerpt}</TableCell>
                   <TableCell>
                     <Button variant="ghost" size="icon" onClick={() => handleEdit(story)}>
                       <Edit className="h-4 w-4" />
