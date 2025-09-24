@@ -10,6 +10,9 @@ import { CartProvider } from '../contexts/CartContext';
 export const metadata: Metadata = {
   title: 'Ikat Talam: Story of Weave and Ancestry',
   description: "A digital platform preserving Cordillera's indigenous weaving traditions through e-commerce and storytelling.",
+  icons: {
+    icon: '/logo copy.ico',
+  },
 };
 
 export default function RootLayout({
