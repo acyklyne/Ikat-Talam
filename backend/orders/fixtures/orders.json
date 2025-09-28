@@ -1,0 +1,24 @@
+[
+  {
+    "model": "orders.order",
+    "pk": 1,
+    "fields": {
+      "customer_name": "John Doe",
+      "email": "john@example.com",
+      "total": "1458.00",
+      "status": "pending",
+      "date": "2023-10-01"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 2,
+    "fields": {
+      "customer_name": "Jane Smith",
+      "email": "jane@example.com",
+      "total": "1299.00",
+      "status": "shipped",
+      "date": "2023-09-28"
+    }
+  }
+]

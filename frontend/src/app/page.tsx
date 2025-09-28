@@ -1,13 +1,17 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../components/ui/button';
 import { ProductCard } from '../components/ProductCard';
 import { StoryCard } from '../components/StoryCard';
-import { products, stories, galleryItems } from '../lib/data';
+import { stories, galleryItems } from '../lib/data';
 import { GalleryItem } from '../components/GalleryItem';
 import { ArrowRight } from 'lucide-react';
+import { useProducts } from '../hooks/useProducts';
 
 export default function Home() {
+  const { products, loading } = useProducts();
   const featuredProducts = products.slice(0, 3);
   const featuredStories = stories.slice(0, 2);
   const featuredGalleryItems = galleryItems.slice(0, 4);

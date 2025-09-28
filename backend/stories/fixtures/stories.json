@@ -1,0 +1,38 @@
+[
+  {
+    "model": "stories.story",
+    "pk": 1,
+    "fields": {
+      "title": "The Whispering Loom of Kalinga",
+      "excerpt": "Lola Anya, a master weaver from the Kalinga tribe, has been weaving since she was a young girl. Her hands move with a practiced grace, her loom whispering tales of generations past...",
+      "content": "Lola Anya, a master weaver from the Kalinga tribe, has been weaving since she was a young girl. Her hands move with a practiced grace, her loom whispering tales of generations past. Each thread she pulls is a connection to her ancestors, each pattern a chapter in her people's story. The \"sinulid\" (thread) is dyed using extracts from local plants and soil, a secret passed down from her grandmother. This story is deeply connected to our Kalinga Woven Blanket.",
+      "image_url": "/images/s3.png",
+      "related_product_id": 1,
+      "ai_hint": "old woman weaving"
+    }
+  },
+  {
+    "model": "stories.story",
+    "pk": 2,
+    "fields": {
+      "title": "The Diamond of the Ifugao Mountains",
+      "excerpt": "In the heart of the Ifugao mountains, the diamond pattern is more than just a design; it is a symbol of protection and prosperity. The weavers believe it represents the eyes of their ancestors...",
+      "content": "In the heart of the Ifugao mountains, the diamond pattern is more than just a design; it is a symbol of protection and prosperity. The weavers believe it represents the eyes of their ancestors watching over them. Young weavers must undergo a ritual before they are allowed to create this sacred pattern, ensuring they approach the task with respect and humility. Our Ifugao Woven Table Runner carries this powerful symbolism.",
+      "image_url": "/images/s1.png",
+      "related_product_id": 2,
+      "ai_hint": "mountain landscape"
+    }
+  },
+  {
+    "model": "stories.story",
+    "pk": 3,
+    "fields": {
+      "title": "The Colors of Bontoc",
+      "excerpt": "The vibrant reds, yellows, and blacks of Bontoc weaving are not chosen by chance. They represent the core elements of their life: the earth, the sun, and the sky...",
+      "content": "The vibrant reds, yellows, and blacks of Bontoc weaving are not chosen by chance. They represent the core elements of their life: the earth that provides, the sun that gives life, and the sky that holds their gods. This deep connection to nature is woven into every textile, creating pieces that are not just beautiful, but also spiritually significant. This tradition is embodied in the Bontoc Woven Backpack.",
+      "image_url": "/images/s2.png",
+      "related_product_id": null,
+      "ai_hint": "vibrant textiles"
+    }
+  }
+]

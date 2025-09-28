@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import { Button } from '../../components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '../../components/ui/dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table';
 import { Badge } from '../../components/ui/badge';
 import { Input } from '../../components/ui/input';
@@ -13,7 +13,7 @@ import { Textarea } from '../../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../../components/ui/alert-dialog';
 import { Plus, Edit, Trash2 } from 'lucide-react';
-import { products, stories, galleryItems, orders, addProduct, updateProduct, deleteProduct, addStory, updateStory, deleteStory, addGalleryItem, updateGalleryItem, deleteGalleryItem, addOrder, updateOrder, deleteOrder, IProduct, IStory, IGalleryItem, IOrder } from '../../lib/data';
+import { IProduct, IStory, IGalleryItem, IOrder } from '../../lib/data';
 import { useAuth } from '../../contexts/AuthContext';
 
 export default function AdminPage() {
@@ -32,72 +32,139 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('products');
   const [editingItem, setEditingItem] = useState<any>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [formData, setFormData] = useState<any>({});
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [stories, setStories] = useState<IStory[]>([]);
+  const [galleryItems, setGalleryItems] = useState<IGalleryItem[]>([]);
+  const [orders, setOrders] = useState<IOrder[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [productsRes, storiesRes, galleryRes, ordersRes] = await Promise.all([
+          fetch('/api/products'),
+          fetch('/api/stories'),
+          fetch('/api/gallery'),
+          fetch('/api/orders'),
+        ]);
+        const productsData = await productsRes.json();
+        const storiesData = await storiesRes.json();
+        const galleryData = await galleryRes.json();
+        const ordersData = await ordersRes.json();
+        setProducts(Array.isArray(productsData) ? productsData : []);
+        setStories(Array.isArray(storiesData) ? storiesData.map(story => ({ ...story, imageUrl: story.image_url })) : []);
+        setGalleryItems(Array.isArray(galleryData) ? galleryData.map(item => ({ ...item, imageUrl: item.image_url })) : []);
+        setOrders(Array.isArray(ordersData) ? ordersData : []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleAdd = (type: string) => {
     setEditingItem(null);
+    setFormData({});
     setIsDialogOpen(true);
   };
 
   const handleEdit = (item: any) => {
     setEditingItem(item);
+    setFormData({ ...item });
     setIsDialogOpen(true);
   };
 
-  const handleDelete = (type: string, id: number) => {
-    switch (type) {
-      case 'products':
-        deleteProduct(id);
-        break;
-      case 'stories':
-        deleteStory(id);
-        break;
-      case 'gallery':
-        deleteGalleryItem(id);
-        break;
-      case 'orders':
-        deleteOrder(id);
-        break;
+  const handleDelete = async (type: string, id: number) => {
+    try {
+      const response = await fetch(`/api/${type}/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        // Refetch data
+        const fetchData = async () => {
+          try {
+            const [productsRes, storiesRes, galleryRes, ordersRes] = await Promise.all([
+              fetch('/api/products'),
+              fetch('/api/stories'),
+              fetch('/api/gallery'),
+              fetch('/api/orders'),
+            ]);
+            const productsData = await productsRes.json();
+            const storiesData = await storiesRes.json();
+            const galleryData = await galleryRes.json();
+            const ordersData = await ordersRes.json();
+            setProducts(Array.isArray(productsData) ? productsData : []);
+            setStories(Array.isArray(storiesData) ? storiesData.map(story => ({ ...story, imageUrl: story.image_url })) : []);
+            setGalleryItems(Array.isArray(galleryData) ? galleryData.map(item => ({ ...item, imageUrl: item.image_url })) : []);
+            setOrders(Array.isArray(ordersData) ? ordersData : []);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchData();
+      } else {
+        console.error('Error deleting item');
+      }
+    } catch (error) {
+      console.error('Error deleting item:', error);
     }
-    // Force re-render by updating state
-    setActiveTab(activeTab);
   };
 
-  const handleSave = (type: string, data: any) => {
-    if (editingItem) {
-      switch (type) {
-        case 'products':
-          updateProduct(editingItem.id, data);
-          break;
-        case 'stories':
-          updateStory(editingItem.id, data);
-          break;
-        case 'gallery':
-          updateGalleryItem(editingItem.id, data);
-          break;
-        case 'orders':
-          updateOrder(editingItem.id, data);
-          break;
+  const handleSave = async (type: string, data: any) => {
+    try {
+      const method = editingItem ? 'PUT' : 'POST';
+      const url = editingItem ? `/api/${type}/${editingItem.id}` : `/api/${type}`;
+      let body: any;
+      let headers: any = {};
+      // Map imageUrl to image_url
+      const mappedData = { ...data };
+      if (type === 'stories' || type === 'gallery') {
+        mappedData.image_url = data.imageUrl;
+        delete mappedData.imageUrl;
       }
-    } else {
-      switch (type) {
-        case 'products':
-          addProduct(data);
-          break;
-        case 'stories':
-          addStory(data);
-          break;
-        case 'gallery':
-          addGalleryItem(data);
-          break;
-        case 'orders':
-          addOrder(data);
-          break;
+      if (type === 'products') {
+        if (data.image_url) {
+          mappedData.image_url = data.image_url;
+        }
       }
+      body = JSON.stringify(mappedData);
+      headers = { 'Content-Type': 'application/json' };
+      const response = await fetch(url, {
+        method,
+        headers,
+        body,
+      });
+      if (response.ok) {
+        // Refetch data
+        const fetchData = async () => {
+          try {
+            const [productsRes, storiesRes, galleryRes, ordersRes] = await Promise.all([
+              fetch('/api/products'),
+              fetch('/api/stories'),
+              fetch('/api/gallery'),
+              fetch('/api/orders'),
+            ]);
+            const productsData = await productsRes.json();
+            const storiesData = await storiesRes.json();
+            const galleryData = await galleryRes.json();
+            const ordersData = await ordersRes.json();
+            setProducts(Array.isArray(productsData) ? productsData : []);
+            setStories(Array.isArray(storiesData) ? storiesData.map(story => ({ ...story, imageUrl: story.image_url })) : []);
+            setGalleryItems(Array.isArray(galleryData) ? galleryData.map(item => ({ ...item, imageUrl: item.image_url })) : []);
+            setOrders(Array.isArray(ordersData) ? ordersData : []);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchData();
+        setIsDialogOpen(false);
+        setEditingItem(null);
+      } else {
+        console.error('Error saving item');
+      }
+    } catch (error) {
+      console.error('Error saving item:', error);
     }
-    setIsDialogOpen(false);
-    setEditingItem(null);
-    // Force re-render
-    setActiveTab(activeTab);
   };
 
   return (
@@ -134,7 +201,7 @@ export default function AdminPage() {
                   <TableCell>{product.category}</TableCell>
                   <TableCell>₱{product.price}</TableCell>
                   <TableCell>
-                    <img src={product.imageUrl} alt={product.name} className="h-10 w-10 object-cover rounded" />
+                    <img src={product.image_url} alt={product.name} className="h-10 w-10 object-cover rounded" />
                   </TableCell>
                   <TableCell>
                     <Button variant="ghost" size="icon" onClick={() => handleEdit(product)}>
@@ -334,7 +401,232 @@ export default function AdminPage() {
           </Table>
         </TabsContent>
       </Tabs>
-      {/* You can add your Dialog for Add/Edit here */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{editingItem ? 'Edit' : 'Add'} {activeTab.slice(0, -1)}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            {activeTab === 'products' && (
+              <>
+                <div>
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    value={formData.name || ''}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="category">Category</Label>
+                  <Input
+                    id="category"
+                    value={formData.category || ''}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="price">Price</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    value={formData.price || ''}
+                    onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="short_description">Short Description</Label>
+                  <Textarea
+                    id="short_description"
+                    value={formData.short_description || ''}
+                    onChange={(e) => setFormData({ ...formData, short_description: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description || ''}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="image_url">Image URL</Label>
+                  <Input
+                    id="image_url"
+                    type="url"
+                    value={formData.image_url || ''}
+                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="ai_hint">AI Hint</Label>
+                  <Textarea
+                    id="ai_hint"
+                    value={formData.ai_hint || ''}
+                    onChange={(e) => setFormData({ ...formData, ai_hint: e.target.value })}
+                  />
+                </div>
+              </>
+            )}
+            {activeTab === 'stories' && (
+              <>
+                <div>
+                  <Label htmlFor="title">Title</Label>
+                  <Input
+                    id="title"
+                    value={formData.title || ''}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="excerpt">Excerpt</Label>
+                  <Textarea
+                    id="excerpt"
+                    value={formData.excerpt || ''}
+                    onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="content">Content</Label>
+                  <Textarea
+                    id="content"
+                    value={formData.content || ''}
+                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="imageUrl">Image URL</Label>
+                  <Input
+                    id="imageUrl"
+                    type="url"
+                    value={formData.imageUrl || ''}
+                    onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="relatedProductId">Related Product ID</Label>
+                  <Input
+                    id="relatedProductId"
+                    type="number"
+                    value={formData.relatedProductId || ''}
+                    onChange={(e) => setFormData({ ...formData, relatedProductId: parseInt(e.target.value) })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="aiHint">AI Hint</Label>
+                  <Textarea
+                    id="aiHint"
+                    value={formData.aiHint || ''}
+                    onChange={(e) => setFormData({ ...formData, aiHint: e.target.value })}
+                  />
+                </div>
+              </>
+            )}
+            {activeTab === 'gallery' && (
+              <>
+                <div>
+                  <Label htmlFor="title">Title</Label>
+                  <Input
+                    id="title"
+                    value={formData.title || ''}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description || ''}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="imageUrl">Image URL</Label>
+                  <Input
+                    id="imageUrl"
+                    type="url"
+                    value={formData.imageUrl || ''}
+                    onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="aiHint">AI Hint</Label>
+                  <Textarea
+                    id="aiHint"
+                    value={formData.aiHint || ''}
+                    onChange={(e) => setFormData({ ...formData, aiHint: e.target.value })}
+                  />
+                </div>
+              </>
+            )}
+            {activeTab === 'orders' && (
+              <>
+                <div>
+                  <Label htmlFor="customerName">Customer Name</Label>
+                  <Input
+                    id="customerName"
+                    value={formData.customerName || ''}
+                    onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email || ''}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="status">Status</Label>
+                  <Select value={formData.status || ''} onValueChange={(value) => setFormData({ ...formData, status: value })}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="processing">Processing</SelectItem>
+                      <SelectItem value="shipped">Shipped</SelectItem>
+                      <SelectItem value="delivered">Delivered</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="total">Total</Label>
+                  <Input
+                    id="total"
+                    type="number"
+                    value={formData.total || ''}
+                    onChange={(e) => setFormData({ ...formData, total: parseFloat(e.target.value) })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="date">Date</Label>
+                  <Input
+                    id="date"
+                    type="date"
+                    value={formData.date || ''}
+                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={() => handleSave(activeTab, formData)}>
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

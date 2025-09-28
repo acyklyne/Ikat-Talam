@@ -1,0 +1,112 @@
+[
+  {
+    "model": "gallery.galleryitem",
+    "pk": 1,
+    "fields": {
+      "title": "A moutain view in Cordillera",
+      "description": "",
+      "image_url": "/images/g1.png",
+      "ai_hint": "weaving hands"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 2,
+    "fields": {
+      "title": "Foggy Night at Baguio's Iconic Cathedral",
+      "description": "",
+      "image_url": "/images/g2.png",
+      "ai_hint": "natural dyes"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 3,
+    "fields": {
+      "title": "Woman Wearing Traditional Costume on a Street",
+      "description": "",
+      "image_url": "/images/g3.png",
+      "ai_hint": "traditional hut"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 4,
+    "fields": {
+      "title": "Kalinga Weaving Store",
+      "description": "",
+      "image_url": "/images/g4.png",
+      "ai_hint": "woman portrait"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 5,
+    "fields": {
+      "title": "Banaue Rice Fields",
+      "description": "",
+      "image_url": "/images/g5.png",
+      "ai_hint": "traditional dance"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 6,
+    "fields": {
+      "title": "A Falls in Bagiuo",
+      "description": "",
+      "image_url": "/images/g6.png",
+      "ai_hint": "textile pattern"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 7,
+    "fields": {
+      "title": "Threads of Life",
+      "description": "",
+      "image_url": "/images/g7.png",
+      "ai_hint": "colorful thread"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 8,
+    "fields": {
+      "title": "Community Weaving Circle",
+      "description": "",
+      "image_url": "/images/g8.png",
+      "ai_hint": "community gathering"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 9,
+    "fields": {
+      "title": "Traditional Clothing",
+      "description": "",
+      "image_url": "/images/7.png",
+      "ai_hint": "adwadasd"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 10,
+    "fields": {
+      "title": "Festival Dance",
+      "description": "",
+      "image_url": "/images/g10.png",
+      "ai_hint": "comsdw"
+    }
+  },
+  {
+    "model": "gallery.galleryitem",
+    "pk": 11,
+    "fields": {
+      "title": "Mountain View ",
+      "description": "",
+      "image_url": "/images/g11.png",
+      "ai_hint": "gathering"
+    }
+  }
+]

@@ -2,11 +2,11 @@ export interface IProduct {
   id: number;
   name: string;
   category: string;
-  price: number;
-  shortDescription: string;
+  price: number | string;
+  short_description: string;
   description: string;
-  imageUrl: string;
-  aiHint: string;
+  image_url: string;
+  ai_hint: string;
 }
 
 export interface IStory {
@@ -43,60 +43,60 @@ export let products: IProduct[] = [
     name: 'Kalinga Woven Traditional Dress',
     category: 'Home Textiles',
     price: 859.0,
-    shortDescription: 'Handwoven by Kalinga master weavers, perfect for a cozy home.',
+    short_description: 'Handwoven by Kalinga master weavers, perfect for a cozy home.',
     description: 'This beautiful dress is handwoven using traditional backstrap loom techniques by the master weavers of Kalinga. The intricate patterns tell stories of their culture and heritage. Made from 100% locally sourced cotton, it is both soft and durable.',
-    imageUrl: '/images/4.png', // Fixed path to reference public directory
-    aiHint: 'woven blanket',
+    image_url: '/images/4.png', // Fixed path to reference public directory
+    ai_hint: 'woven blanket',
   },
   {
     id: 2,
     name: 'Ifugao Woven Table Runner',
     category: 'Dining',
     price: 599.0,
-    shortDescription: 'An elegant table runner featuring traditional Ifugao motifs.',
+    short_description: 'An elegant table runner featuring traditional Ifugao motifs.',
     description: 'Adorn your dining table with this elegant runner, showcasing the distinct diamond patterns of Ifugao weaving. Each piece is a testament to the weaver\'s skill and patience, often taking weeks to complete. It adds a touch of indigenous artistry to any meal.',
-    imageUrl: '/images/5.png',
-    aiHint: 'table runner',
+    image_url: '/images/5.png',
+    ai_hint: 'table runner',
   },
   {
     id: 3,
     name: 'Bontoc Woven Clothing',
     category: 'Accessories',
     price: 1299.0,
-    shortDescription: 'A durable and stylish clothing item for everyday use.',
+    short_description: 'A durable and stylish clothing item for everyday use.',
     description: 'Combining traditional Bontoc weaving with modern design, this clothing is both functional and fashionable. The strong, vibrant fabric is designed to withstand daily use while making a bold cultural statement.',
-    imageUrl: '/images/6.png',
-    aiHint: 'woven backpack',
+    image_url: '/images/6.png',
+    ai_hint: 'woven backpack',
   },
   {
     id: 4,
     name: 'Abra Handwoven Night Dress',
     category: 'Apparel',
     price: 399.0,
-    shortDescription: 'A soft, lightweight cloth made from natural dyes.',
+    short_description: 'A soft, lightweight cloth made from natural dyes.',
     description: 'Crafted in Abra, this night dress is known for its incredible softness and use of natural dyes derived from local plants. The simple yet elegant design makes it a versatile accessory for any season.',
-    imageUrl: '/images/7.png',
-    aiHint: 'woven scarf',
+    image_url: '/images/7.png',
+    ai_hint: 'woven scarf',
   },
   {
     id: 5,
     name: 'Isinay Ceremonial Cloth',
     category: 'Wall Art',
     price: 2599.0,
-    shortDescription: 'A rare and intricate piece of ceremonial textile art.',
+    short_description: 'A rare and intricate piece of ceremonial textile art.',
     description: 'This is a collector\'s item, a ceremonial cloth woven by the Isinay people. Used in rituals and special occasions, the patterns are sacred and hold deep spiritual meaning. A stunning piece for textile enthusiasts and art collectors.',
-    imageUrl: '/images/8.png',
-    aiHint: 'ceremonial cloth',
+    image_url: '/images/8.png',
+    ai_hint: 'ceremonial cloth',
   },
   {
     id: 6,
     name: 'Gaddang Beaded Dress',
     category: 'Home Decor',
     price: 1899.0,
-    shortDescription: 'A vibrant textile adorned with traditional Gaddang beadwork.',
+    short_description: 'A vibrant textile adorned with traditional Gaddang beadwork.',
     description: 'The Gaddang are renowned for their exquisite beadwork, and this textile is a prime example. Thousands of tiny beads are meticulously stitched onto the handwoven fabric, creating a dazzling piece of art perfect for home decor.',
-    imageUrl: '/images/9.png',
-    aiHint: 'beaded textile',
+    image_url: '/images/9.png',
+    ai_hint: 'beaded textile',
   },
 ];
 

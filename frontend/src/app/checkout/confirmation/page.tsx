@@ -22,7 +22,7 @@ export default function ConfirmationPage() {
 
   const orderDetails = {
     id: orderId,
-    customerName: 'John Doe', // In a real app, this would come from the order data
+    customerName: 'John Doe', 
     email: 'john@example.com',
     total: 1250.00,
     items: [
