@@ -37,6 +37,12 @@ export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout, login } = useAuth();
+
+  // Adjust user display for object user
+  const userName = user && typeof user !== 'string' ? user.name : null;
+
+  // Type guard for user object
+  const isUserObject = (u: any): u is { name: string } => u && typeof u === 'object' && 'name' in u;
   const { getItemCount } = useCart();
 
   const NavLink = ({ href, label, className }: { href: string; label: string; className?: string }) => {
@@ -56,7 +62,7 @@ export function Header() {
     );
   };
 
-  const adminLink = user === 'admin' ? [{ href: '/admin', label: 'Admin' }] : [];
+  const adminLink = user && typeof user !== 'string' && user.role === 'admin' ? [{ href: '/admin', label: 'Admin' }] : [];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -114,20 +120,11 @@ export function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <div className="px-2 py-1.5 text-sm">
-                  Logged in as {user}
+                  Logged in as {userName}
                 </div>
                 <DropdownMenuItem onClick={logout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   Logout
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => {
-                  if (user === 'admin') {
-                    login('user');
-                  } else {
-                    login('admin');
-                  }
-                }} className="bg-gray-100 dark:bg-gray-700">
-                  {user === 'admin' ? 'Switch to User' : 'Switch to Admin'}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -183,18 +180,9 @@ export function Header() {
                     </div>
                     {user ? (
                       <div>
-                        <p className="text-muted-foreground">Logged in as {user}</p>
+                        <p className="text-muted-foreground">Logged in as {userName}</p>
                         <Button onClick={logout} variant="outline" className="w-full mt-2">
                           Logout
-                        </Button>
-                        <Button onClick={() => {
-                          if (user === 'admin') {
-                            login('user');
-                          } else {
-                            login('admin');
-                          }
-                        }} variant="outline" className="w-full mt-2">
-                          {user === 'admin' ? 'Switch to User' : 'Switch to Admin'}
                         </Button>
                       </div>
                     ) : (

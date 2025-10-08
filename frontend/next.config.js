@@ -18,6 +18,11 @@ const nextConfig = {
         hostname: 'www.bing.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'drive.google.com',
+        pathname: '/**',
+      },
     ],
   },
 };

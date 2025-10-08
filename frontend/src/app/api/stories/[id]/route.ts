@@ -1,29 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { stories, updateStory, deleteStory } from '../../../../lib/data';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+  try {
+    const story = stories.find(s => s.id === parseInt(params.id));
+    if (!story) {
+      return NextResponse.json({ error: 'Story not found' }, { status: 404 });
+    }
+    return NextResponse.json(story);
+  } catch (error) {
+    console.error('Error fetching story:', error);
+    return NextResponse.json({ error: 'Failed to fetch story' }, { status: 500 });
+  }
+}
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const contentType = request.headers.get('content-type');
-    let backendBody;
-    let backendHeaders = {};
-
-    if (contentType && contentType.includes('multipart/form-data')) {
-      const formData = await request.formData();
-      backendBody = formData;
-    } else {
-      const body = await request.json();
-      backendBody = JSON.stringify(body);
-      backendHeaders = { 'Content-Type': 'application/json' };
-    }
-
-    const response = await fetch(`${API_BASE_URL}/stories/${params.id}`, {
-      method: 'PUT',
-      headers: backendHeaders,
-      body: backendBody,
-    });
-    const data = await response.json();
-    return NextResponse.json(data, { status: response.status });
+    const body = await request.json();
+    const id = parseInt(params.id);
+    updateStory(id, body);
+    return NextResponse.json({ message: 'Story updated successfully' });
   } catch (error) {
     console.error('Error updating story:', error);
     return NextResponse.json({ error: 'Failed to update story' }, { status: 500 });
@@ -32,10 +28,9 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const response = await fetch(`${API_BASE_URL}/stories/${params.id}`, {
-      method: 'DELETE',
-    });
-    return NextResponse.json({ success: true }, { status: response.status });
+    const id = parseInt(params.id);
+    deleteStory(id);
+    return NextResponse.json({ message: 'Story deleted successfully' });
   } catch (error) {
     console.error('Error deleting story:', error);
     return NextResponse.json({ error: 'Failed to delete story' }, { status: 500 });

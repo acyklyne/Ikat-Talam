@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Test User",
+    "email": "test@example.com",
+    "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+    "role": "user",
+    "emailVerified": true,
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "name": "Admin User",
+    "email": "admin@example.com",
+    "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+    "role": "admin",
+    "emailVerified": true,
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "name": "Backdoor User",
+    "email": "backdoor@user.com",
+    "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+    "role": "user",
+    "emailVerified": true,
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 1759950948504,
+    "name": "Acy Klyne B. Aguilar ",
+    "email": "acyklyne17@gmail.com",
+    "password": "$2b$10$qbENWwT0nGcSK938HK9cbO0wKQ2OxMHNArv6E8vM8kOg.VMd1ipOC",
+    "role": "user",
+    "emailVerified": false,
+    "createdAt": "2025-10-08T19:15:48.504Z"
+  }
+]

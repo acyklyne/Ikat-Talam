@@ -28,6 +28,11 @@ export function GalleryItem({ item }: GalleryItemProps) {
       />
       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="absolute inset-0 p-4 flex flex-col justify-end text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="mb-2">
+          <span className="inline-block px-2 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium">
+            {item.category}
+          </span>
+        </div>
         <h3 className="font-headline text-lg font-bold">{item.title}</h3>
         <p className="text-sm">{item.description}</p>
         <div className="mt-2">

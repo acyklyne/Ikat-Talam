@@ -8,44 +8,63 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
 import { useToast } from '../../hooks/use-toast';
-import { useAuth } from '../../contexts/AuthContext';
-import { Eye, EyeOff, LogIn } from 'lucide-react';
+import { Eye, EyeOff, UserPlus } from 'lucide-react';
 
-export default function LoginPage() {
+export default function RegisterPage() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      toast({
+        title: 'Error',
+        description: 'Passwords do not match',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      toast({
+        title: 'Error',
+        description: 'Password must be at least 6 characters long',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        login(data.user, data.token);
         toast({
-          title: 'Login Successful',
-          description: 'Welcome back!',
+          title: 'Registration Successful',
+          description: 'Please check your email to verify your account.',
         });
-        router.push('/');
+        router.push('/login');
       } else {
         toast({
-          title: 'Login Failed',
-          description: data.error || 'Invalid credentials',
+          title: 'Registration Failed',
+          description: data.error || 'Something went wrong',
           variant: 'destructive',
         });
       }
@@ -65,15 +84,26 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="flex items-center justify-center gap-2">
-            <LogIn className="h-6 w-6" />
-            Sign In
+            <UserPlus className="h-6 w-6" />
+            Create Account
           </CardTitle>
           <CardDescription>
-            Enter your credentials to access your account
+            Join Ikat-Talam to support cultural heritage
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="name">Full Name</Label>
+              <Input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your full name"
+                required
+              />
+            </div>
             <div>
               <Label htmlFor="email">Email</Label>
               <Input
@@ -107,14 +137,36 @@ export default function LoginPage() {
                 </Button>
               </div>
             </div>
+            <div>
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <div className="relative">
+                <Input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm your password"
+                  required
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </Button>
+              </div>
+            </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Signing In...' : 'Sign In'}
+              {isLoading ? 'Creating Account...' : 'Create Account'}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
-            Don't have an account?{' '}
-            <Link href="/register" className="text-primary hover:underline">
-              Create one
+            Already have an account?{' '}
+            <Link href="/login" className="text-primary hover:underline">
+              Sign in
             </Link>
           </div>
         </CardContent>

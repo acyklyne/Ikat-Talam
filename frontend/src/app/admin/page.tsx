@@ -21,12 +21,12 @@ export default function AdminPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (user !== 'admin') {
+    if (user?.role !== 'admin') {
       router.push('/login');
     }
   }, [user, router]);
 
-  if (user !== 'admin') {
+  if (user?.role !== 'admin') {
     return <div>Access denied. Please login as admin.</div>;
   }
   const [activeTab, setActiveTab] = useState('products');

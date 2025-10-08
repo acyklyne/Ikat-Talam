@@ -24,7 +24,17 @@ export interface IGalleryItem {
   title: string;
   description: string;
   imageUrl: string;
+  category: string;
   aiHint: string;
+}
+
+export interface IUser {
+  id: number;
+  email: string;
+  name: string;
+  role: 'user' | 'admin';
+  emailVerified: boolean;
+  createdAt: string;
 }
 
 export interface IOrder {
@@ -130,17 +140,17 @@ export let stories: IStory[] = [
 ];
 
 export let galleryItems: IGalleryItem[] = [
-  { id: 1, title: 'A moutain view in Cordillera', description: '', imageUrl: '/images/g1.png', aiHint: 'weaving hands' },
-  { id: 2, title: "Foggy Night at Baguio's Iconic Cathedral", description: '', imageUrl: '/images/g2.png', aiHint: 'natural dyes' },
-  { id: 3, title: 'Woman Wearing Traditional Costume on a Street', description: '', imageUrl: '/images/g3.png', aiHint: 'traditional hut' },
-  { id: 4, title: 'Kalinga Weaving Store', description: '',  imageUrl: '/images/g4.png', aiHint: 'woman portrait' },
-  { id: 5, title: 'Banaue Rice Fields', description: '',  imageUrl: '/images/g5.png', aiHint: 'traditional dance' },
-  { id: 6, title: 'A Falls in Bagiuo', description: '',  imageUrl: '/images/g6.png', aiHint: 'textile pattern' },
-  { id: 7, title: 'Threads of Life', description: '',  imageUrl: '/images/g7.png', aiHint: 'colorful thread' },
-  { id: 8, title: 'Community Weaving Circle', description: '',  imageUrl: '/images/g8.png', aiHint: 'community gathering' },
-  { id: 9, title: 'Traditional Clothing', description: '',  imageUrl: '/images/7.png', aiHint: 'adwadasd' },
-  { id: 10, title: 'Festival Dance', description: '',  imageUrl: '/images/g10.png', aiHint: 'comsdw' },
-  { id: 11, title: 'Mountain View ', description: '',  imageUrl: '/images/g11.png', aiHint: 'gathering' },
+  { id: 1, title: 'A moutain view in Cordillera', description: '', imageUrl: '/images/g1.png', category: 'Nature', aiHint: 'weaving hands' },
+  { id: 2, title: "Foggy Night at Baguio's Iconic Cathedral", description: '', imageUrl: '/images/g2.png', category: 'Culture', aiHint: 'natural dyes' },
+  { id: 3, title: 'Woman Wearing Traditional Costume on a Street', description: '', imageUrl: '/images/g3.png', category: 'Culture', aiHint: 'traditional hut' },
+  { id: 4, title: 'Kalinga Weaving Store', description: '',  imageUrl: '/images/g4.png', category: 'Artisans', aiHint: 'woman portrait' },
+  { id: 5, title: 'Banaue Rice Fields', description: '',  imageUrl: '/images/g5.png', category: 'Nature', aiHint: 'traditional dance' },
+  { id: 6, title: 'A Falls in Bagiuo', description: '',  imageUrl: '/images/g6.png', category: 'Nature', aiHint: 'textile pattern' },
+  { id: 7, title: 'Threads of Life', description: '',  imageUrl: '/images/g7.png', category: 'Artisans', aiHint: 'colorful thread' },
+  { id: 8, title: 'Community Weaving Circle', description: '',  imageUrl: '/images/g8.png', category: 'Culture', aiHint: 'community gathering' },
+  { id: 9, title: 'Traditional Clothing', description: '',  imageUrl: '/images/7.png', category: 'Culture', aiHint: 'adwadasd' },
+  { id: 10, title: 'Festival Dance', description: '',  imageUrl: '/images/g10.png', category: 'Festivals', aiHint: 'comsdw' },
+  { id: 11, title: 'Mountain View ', description: '',  imageUrl: '/images/g11.png', category: 'Nature', aiHint: 'gathering' },
 ];
 
 export let orders: IOrder[] = [

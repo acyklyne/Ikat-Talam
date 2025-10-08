@@ -6,6 +6,7 @@
       "title": "A moutain view in Cordillera",
       "description": "",
       "image_url": "/images/g1.png",
+      "category": "Nature",
       "ai_hint": "weaving hands"
     }
   },
@@ -16,6 +17,7 @@
       "title": "Foggy Night at Baguio's Iconic Cathedral",
       "description": "",
       "image_url": "/images/g2.png",
+      "category": "Culture",
       "ai_hint": "natural dyes"
     }
   },
@@ -26,6 +28,7 @@
       "title": "Woman Wearing Traditional Costume on a Street",
       "description": "",
       "image_url": "/images/g3.png",
+      "category": "Culture",
       "ai_hint": "traditional hut"
     }
   },
@@ -36,6 +39,7 @@
       "title": "Kalinga Weaving Store",
       "description": "",
       "image_url": "/images/g4.png",
+      "category": "Artisans",
       "ai_hint": "woman portrait"
     }
   },
@@ -46,6 +50,7 @@
       "title": "Banaue Rice Fields",
       "description": "",
       "image_url": "/images/g5.png",
+      "category": "Nature",
       "ai_hint": "traditional dance"
     }
   },
@@ -56,6 +61,7 @@
       "title": "A Falls in Bagiuo",
       "description": "",
       "image_url": "/images/g6.png",
+      "category": "Nature",
       "ai_hint": "textile pattern"
     }
   },
@@ -66,6 +72,7 @@
       "title": "Threads of Life",
       "description": "",
       "image_url": "/images/g7.png",
+      "category": "Artisans",
       "ai_hint": "colorful thread"
     }
   },
@@ -76,6 +83,7 @@
       "title": "Community Weaving Circle",
       "description": "",
       "image_url": "/images/g8.png",
+      "category": "Culture",
       "ai_hint": "community gathering"
     }
   },
@@ -86,6 +94,7 @@
       "title": "Traditional Clothing",
       "description": "",
       "image_url": "/images/7.png",
+      "category": "Culture",
       "ai_hint": "adwadasd"
     }
   },
@@ -96,6 +105,7 @@
       "title": "Festival Dance",
       "description": "",
       "image_url": "/images/g10.png",
+      "category": "Festivals",
       "ai_hint": "comsdw"
     }
   },
@@ -106,6 +116,7 @@
       "title": "Mountain View ",
       "description": "",
       "image_url": "/images/g11.png",
+      "category": "Nature",
       "ai_hint": "gathering"
     }
   }
