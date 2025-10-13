@@ -16,6 +16,7 @@ export interface IStory {
   imageUrl: string;
   relatedProductId?: number;
   relatedGalleryId?: number;
+  aiHint?: string;
 }
 
 export interface IGalleryItem {
@@ -107,28 +108,27 @@ export let stories: IStory[] = [
     id: 1,
     title: 'The Whispering Loom of Kalinga',
     excerpt: 'Lola Anya, a master weaver from the Kalinga tribe, has been weaving since she was a young girl. Her hands move with a practiced grace, her loom whispering tales of generations past...',
-    content: 'Lola Anya, a master weaver from the Kalinga tribe, has been weaving since she was a young girl. Her hands move with a practiced grace, her loom whispering tales of generations past. Each thread she pulls is a connection to her ancestors, each pattern a chapter in her people\'s story. The "sinulid" (thread) is dyed using extracts from local plants and soil, a secret passed down from her grandmother. This story is deeply connected to our Kalinga Woven Blanket.',
+    content: 'Lola Anya, a master weaver from the Kalinga tribe, has been weaving since she was a young girl. Her hands move with a practiced grace, her loom whispering tales of generations past. Each thread she pulls is a connection to her ancestors, each pattern a chapter in her people\'s story. The "sinulid" (thread) is dyed using extracts from local plants and soil, a secret passed down from her grandmother. This story is deeply connected to our <a href="/products/1" class="text-primary hover:underline">Kalinga Woven Blanket</a>. <a href="https://narrastudio.com/blogs/journal/the-weaving-of-kalinga?srsltid=AfmBOopQymRNtQnyCwW0tQRFgz9hdzgrWpe7nBXsgm0aSc0jfjCJvYgz&utm_source=chatgpt.com" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Learn more about Kalinga weaving</a>.',
     imageUrl: '/images/s3.png',
     relatedProductId: 1,
-    relatedGalleryId: 4,
+    aiHint: 'old woman weaving',
   },
   {
     id: 2,
     title: 'The Diamond of the Ifugao Mountains',
     excerpt: 'In the heart of the Ifugao mountains, the diamond pattern is more than just a design; it is a symbol of protection and prosperity. The weavers believe it represents the eyes of their ancestors...',
-    content: 'In the heart of the Ifugao mountains, the diamond pattern is more than just a design; it is a symbol of protection and prosperity. The weavers believe it represents the eyes of their ancestors watching over them. Young weavers must undergo a ritual before they are allowed to create this sacred pattern, ensuring they approach the task with respect and humility. Our Ifugao Woven Table Runner carries this powerful symbolism.',
+    content: 'In the heart of the Ifugao mountains, the diamond pattern is more than just a design; it is a symbol of protection and prosperity. The weavers believe it represents the eyes of their ancestors watching over them. Young weavers must undergo a ritual before they are allowed to create this sacred pattern, ensuring they approach the task with respect and humility. Our Ifugao Woven Table Runner carries this powerful symbolism. <a href="https://www.nardas.com/cordilleran-weaving-culture/?utm_source=chatgpt.com" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Explore Cordilleran weaving culture</a>.',
     imageUrl: '/images/s1.png',
     relatedProductId: 2,
-    relatedGalleryId: 5,
+    aiHint: 'mountain landscape',
   },
-   {
+  {
     id: 3,
     title: 'The Colors of Bontoc',
     excerpt: 'The vibrant reds, yellows, and blacks of Bontoc weaving are not chosen by chance. They represent the core elements of their life: the earth, the sun, and the sky...',
-    content: 'The vibrant reds, yellows, and blacks of Bontoc weaving are not chosen by chance. They represent the core elements of their life: the earth that provides, the sun that gives life, and the sky that holds their gods. This deep connection to nature is woven into every textile, creating pieces that are not just beautiful, but also spiritually significant. This tradition is embodied in the Bontoc Woven Backpack.',
+    content: 'The vibrant reds, yellows, and blacks of Bontoc weaving are not chosen by chance. They represent the core elements of their life: the earth that provides, the sun that gives life, and the sky that holds their gods. This deep connection to nature is woven into every textile, creating pieces that are not just beautiful, but also spiritually significant. This tradition is embodied in the Bontoc Woven Backpack. <a href="https://museokordilyera.upb.edu.ph/product/fataan-and-her-tilar-a-bontoc-weaving-story/?utm_source=chatgpt.com" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Read about Fataan and her Tilar</a>.',
     imageUrl: '/images/s2.png',
-    relatedProductId: 3,
-    relatedGalleryId: 1,
+    aiHint: 'vibrant textiles',
   },
 ];
 

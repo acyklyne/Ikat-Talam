@@ -21,16 +21,7 @@ export default function StoriesPage() {
           ))}
         </div>
 
-        <div className="mt-20 text-center p-8 border-2 border-dashed border-primary/50 rounded-lg max-w-3xl mx-auto">
-            <Wand2 className="mx-auto h-12 w-12 text-primary mb-4" />
-            <h2 className="font-headline text-2xl font-semibold mb-2">Enhance a Story with AI</h2>
-            <p className="text-muted-foreground mb-4">
-                Use our GenAI tool to add rich, contextual details to your own cultural story drafts.
-            </p>
-            <Button asChild>
-                <Link href="/enhance-story">Try the AI Story Enhancer</Link>
-            </Button>
-        </div>
+
       </div>
     </div>
   );
