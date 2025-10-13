@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { products, updateProduct, deleteProduct } from '../../../../lib/data';
+import { products, updateProduct, deleteProduct, stories } from '../../../../lib/data';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -29,8 +29,9 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const id = parseInt(params.id);
+    const relatedStories = stories.filter(s => s.relatedProductId === id).map(s => s.id);
     deleteProduct(id);
-    return NextResponse.json({ message: 'Product deleted successfully' });
+    return NextResponse.json({ message: 'Product deleted successfully', relatedStories });
   } catch (error) {
     console.error('Error deleting product:', error);
     return NextResponse.json({ error: 'Failed to delete product' }, { status: 500 });

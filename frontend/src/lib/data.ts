@@ -6,7 +6,6 @@ export interface IProduct {
   short_description: string;
   description: string;
   image_url: string;
-  ai_hint: string;
 }
 
 export interface IStory {
@@ -16,7 +15,7 @@ export interface IStory {
   content: string;
   imageUrl: string;
   relatedProductId?: number;
-  aiHint: string;
+  relatedGalleryId?: number;
 }
 
 export interface IGalleryItem {
@@ -25,7 +24,6 @@ export interface IGalleryItem {
   description: string;
   imageUrl: string;
   category: string;
-  aiHint: string;
 }
 
 export interface IUser {
@@ -56,7 +54,6 @@ export let products: IProduct[] = [
     short_description: 'Handwoven by Kalinga master weavers, perfect for a cozy home.',
     description: 'This beautiful dress is handwoven using traditional backstrap loom techniques by the master weavers of Kalinga. The intricate patterns tell stories of their culture and heritage. Made from 100% locally sourced cotton, it is both soft and durable.',
     image_url: '/images/4.png', // Fixed path to reference public directory
-    ai_hint: 'woven blanket',
   },
   {
     id: 2,
@@ -66,7 +63,6 @@ export let products: IProduct[] = [
     short_description: 'An elegant table runner featuring traditional Ifugao motifs.',
     description: 'Adorn your dining table with this elegant runner, showcasing the distinct diamond patterns of Ifugao weaving. Each piece is a testament to the weaver\'s skill and patience, often taking weeks to complete. It adds a touch of indigenous artistry to any meal.',
     image_url: '/images/5.png',
-    ai_hint: 'table runner',
   },
   {
     id: 3,
@@ -76,7 +72,6 @@ export let products: IProduct[] = [
     short_description: 'A durable and stylish clothing item for everyday use.',
     description: 'Combining traditional Bontoc weaving with modern design, this clothing is both functional and fashionable. The strong, vibrant fabric is designed to withstand daily use while making a bold cultural statement.',
     image_url: '/images/6.png',
-    ai_hint: 'woven backpack',
   },
   {
     id: 4,
@@ -86,7 +81,6 @@ export let products: IProduct[] = [
     short_description: 'A soft, lightweight cloth made from natural dyes.',
     description: 'Crafted in Abra, this night dress is known for its incredible softness and use of natural dyes derived from local plants. The simple yet elegant design makes it a versatile accessory for any season.',
     image_url: '/images/7.png',
-    ai_hint: 'woven scarf',
   },
   {
     id: 5,
@@ -96,7 +90,6 @@ export let products: IProduct[] = [
     short_description: 'A rare and intricate piece of ceremonial textile art.',
     description: 'This is a collector\'s item, a ceremonial cloth woven by the Isinay people. Used in rituals and special occasions, the patterns are sacred and hold deep spiritual meaning. A stunning piece for textile enthusiasts and art collectors.',
     image_url: '/images/8.png',
-    ai_hint: 'ceremonial cloth',
   },
   {
     id: 6,
@@ -106,7 +99,6 @@ export let products: IProduct[] = [
     short_description: 'A vibrant textile adorned with traditional Gaddang beadwork.',
     description: 'The Gaddang are renowned for their exquisite beadwork, and this textile is a prime example. Thousands of tiny beads are meticulously stitched onto the handwoven fabric, creating a dazzling piece of art perfect for home decor.',
     image_url: '/images/9.png',
-    ai_hint: 'beaded textile',
   },
 ];
 
@@ -118,7 +110,7 @@ export let stories: IStory[] = [
     content: 'Lola Anya, a master weaver from the Kalinga tribe, has been weaving since she was a young girl. Her hands move with a practiced grace, her loom whispering tales of generations past. Each thread she pulls is a connection to her ancestors, each pattern a chapter in her people\'s story. The "sinulid" (thread) is dyed using extracts from local plants and soil, a secret passed down from her grandmother. This story is deeply connected to our Kalinga Woven Blanket.',
     imageUrl: '/images/s3.png',
     relatedProductId: 1,
-    aiHint: 'old woman weaving',
+    relatedGalleryId: 4,
   },
   {
     id: 2,
@@ -127,7 +119,7 @@ export let stories: IStory[] = [
     content: 'In the heart of the Ifugao mountains, the diamond pattern is more than just a design; it is a symbol of protection and prosperity. The weavers believe it represents the eyes of their ancestors watching over them. Young weavers must undergo a ritual before they are allowed to create this sacred pattern, ensuring they approach the task with respect and humility. Our Ifugao Woven Table Runner carries this powerful symbolism.',
     imageUrl: '/images/s1.png',
     relatedProductId: 2,
-    aiHint: 'mountain landscape',
+    relatedGalleryId: 5,
   },
    {
     id: 3,
@@ -135,22 +127,23 @@ export let stories: IStory[] = [
     excerpt: 'The vibrant reds, yellows, and blacks of Bontoc weaving are not chosen by chance. They represent the core elements of their life: the earth, the sun, and the sky...',
     content: 'The vibrant reds, yellows, and blacks of Bontoc weaving are not chosen by chance. They represent the core elements of their life: the earth that provides, the sun that gives life, and the sky that holds their gods. This deep connection to nature is woven into every textile, creating pieces that are not just beautiful, but also spiritually significant. This tradition is embodied in the Bontoc Woven Backpack.',
     imageUrl: '/images/s2.png',
-    aiHint: 'vibrant textiles',
+    relatedProductId: 3,
+    relatedGalleryId: 1,
   },
 ];
 
 export let galleryItems: IGalleryItem[] = [
-  { id: 1, title: 'A moutain view in Cordillera', description: '', imageUrl: '/images/g1.png', category: 'Nature', aiHint: 'weaving hands' },
-  { id: 2, title: "Foggy Night at Baguio's Iconic Cathedral", description: '', imageUrl: '/images/g2.png', category: 'Culture', aiHint: 'natural dyes' },
-  { id: 3, title: 'Woman Wearing Traditional Costume on a Street', description: '', imageUrl: '/images/g3.png', category: 'Culture', aiHint: 'traditional hut' },
-  { id: 4, title: 'Kalinga Weaving Store', description: '',  imageUrl: '/images/g4.png', category: 'Artisans', aiHint: 'woman portrait' },
-  { id: 5, title: 'Banaue Rice Fields', description: '',  imageUrl: '/images/g5.png', category: 'Nature', aiHint: 'traditional dance' },
-  { id: 6, title: 'A Falls in Bagiuo', description: '',  imageUrl: '/images/g6.png', category: 'Nature', aiHint: 'textile pattern' },
-  { id: 7, title: 'Threads of Life', description: '',  imageUrl: '/images/g7.png', category: 'Artisans', aiHint: 'colorful thread' },
-  { id: 8, title: 'Community Weaving Circle', description: '',  imageUrl: '/images/g8.png', category: 'Culture', aiHint: 'community gathering' },
-  { id: 9, title: 'Traditional Clothing', description: '',  imageUrl: '/images/7.png', category: 'Culture', aiHint: 'adwadasd' },
-  { id: 10, title: 'Festival Dance', description: '',  imageUrl: '/images/g10.png', category: 'Festivals', aiHint: 'comsdw' },
-  { id: 11, title: 'Mountain View ', description: '',  imageUrl: '/images/g11.png', category: 'Nature', aiHint: 'gathering' },
+  { id: 1, title: 'A moutain view in Cordillera', description: '', imageUrl: '/images/g1.png', category: 'Nature' },
+  { id: 2, title: "Foggy Night at Baguio's Iconic Cathedral", description: '', imageUrl: '/images/g2.png', category: 'Culture' },
+  { id: 3, title: 'Woman Wearing Traditional Costume on a Street', description: '', imageUrl: '/images/g3.png', category: 'Culture' },
+  { id: 4, title: 'Kalinga Weaving Store', description: '',  imageUrl: '/images/g4.png', category: 'Artisans' },
+  { id: 5, title: 'Banaue Rice Fields', description: '',  imageUrl: '/images/g5.png', category: 'Nature' },
+  { id: 6, title: 'A Falls in Bagiuo', description: '',  imageUrl: '/images/g6.png', category: 'Nature' },
+  { id: 7, title: 'Threads of Life', description: '',  imageUrl: '/images/g7.png', category: 'Artisans' },
+  { id: 8, title: 'Community Weaving Circle', description: '',  imageUrl: '/images/g8.png', category: 'Culture' },
+  { id: 9, title: 'Traditional Clothing', description: '',  imageUrl: '/images/7.png', category: 'Culture' },
+  { id: 10, title: 'Festival Dance', description: '',  imageUrl: '/images/g10.png', category: 'Festivals' },
+  { id: 11, title: 'Mountain View ', description: '',  imageUrl: '/images/g11.png', category: 'Nature' },
 ];
 
 export let orders: IOrder[] = [

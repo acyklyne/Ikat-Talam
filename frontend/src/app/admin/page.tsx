@@ -460,14 +460,7 @@ export default function AdminPage() {
                     placeholder="https://example.com/image.jpg"
                   />
                 </div>
-                <div>
-                  <Label htmlFor="ai_hint">AI Hint</Label>
-                  <Textarea
-                    id="ai_hint"
-                    value={formData.ai_hint || ''}
-                    onChange={(e) => setFormData({ ...formData, ai_hint: e.target.value })}
-                  />
-                </div>
+
               </>
             )}
             {activeTab === 'stories' && (
@@ -515,14 +508,6 @@ export default function AdminPage() {
                     onChange={(e) => setFormData({ ...formData, relatedProductId: parseInt(e.target.value) })}
                   />
                 </div>
-                <div>
-                  <Label htmlFor="aiHint">AI Hint</Label>
-                  <Textarea
-                    id="aiHint"
-                    value={formData.aiHint || ''}
-                    onChange={(e) => setFormData({ ...formData, aiHint: e.target.value })}
-                  />
-                </div>
               </>
             )}
             {activeTab === 'gallery' && (
@@ -553,14 +538,7 @@ export default function AdminPage() {
                     placeholder="https://example.com/image.jpg"
                   />
                 </div>
-                <div>
-                  <Label htmlFor="aiHint">AI Hint</Label>
-                  <Textarea
-                    id="aiHint"
-                    value={formData.aiHint || ''}
-                    onChange={(e) => setFormData({ ...formData, aiHint: e.target.value })}
-                  />
-                </div>
+
               </>
             )}
             {activeTab === 'orders' && (

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stories, updateStory, deleteStory } from '../../../../lib/data';
+import { stories, updateStory, deleteStory, products, galleryItems } from '../../../../lib/data';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -29,8 +29,13 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const id = parseInt(params.id);
+    const story = stories.find(s => s.id === id);
+    const links = {
+      relatedProductId: story?.relatedProductId,
+      relatedGalleryId: story?.relatedGalleryId,
+    };
     deleteStory(id);
-    return NextResponse.json({ message: 'Story deleted successfully' });
+    return NextResponse.json({ message: 'Story deleted successfully', links });
   } catch (error) {
     console.error('Error deleting story:', error);
     return NextResponse.json({ error: 'Failed to delete story' }, { status: 500 });

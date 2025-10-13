@@ -1,41 +1,33 @@
-# Ikat-Talam Feature Implementation Plan
+# TODO: Modify Delete Operations for Products, Gallery, and Stories
 
-## User Registration and Authentication
-- [x] Install required packages: nodemailer, zod, bcryptjs, jsonwebtoken
-- [x] Create user interface/type in frontend/src/lib/data.ts
-- [x] Create registration page (frontend/src/app/register/page.tsx)
-- [x] Update login page to use email/password instead of role selection
-- [x] Add email verification system (send verification email on registration)
-- [x] Create API routes for auth: /api/auth/register, /api/auth/login, /api/auth/verify-email
-- [x] Create Django auth_app with JWT authentication endpoints
-- [x] Add auth_app to Django settings and URLs
-- [ ] Update AuthContext to use real backend auth instead of in-memory store
-- [ ] Update frontend API calls to use new Django auth endpoints
-- [ ] Test user registration and email verification
-- [ ] Add user session management and protected routes
+## Information Gathered
+- Stories currently have `relatedProductId` linking to products.
+- No direct links to gallery items in stories.
+- Need to add `relatedGalleryId` to stories to link to gallery items.
+- Delete handlers in API routes need to include related links in the response before deleting.
 
-## Gallery Categorization
-- [x] Add category field to IGalleryItem interface
-- [x] Update gallery data with categories (e.g., "Nature", "Culture", "Artisans", "Festivals")
-- [x] Update backend gallery model to include category field
-- [x] Update gallery fixtures with categories
-- [x] Add category filtering UI to gallery page
-- [x] Implement category-based sorting and display
+## Plan
+1. Update `IStory` interface in `frontend/src/lib/data.ts` to include `relatedGalleryId?: number;`.
+2. Update the `stories` array in `frontend/src/lib/data.ts` to add `relatedGalleryId` to relevant stories.
+3. Modify DELETE handler in `frontend/src/app/api/products/[id]/route.ts` to find and include related story IDs in the response.
+4. Modify DELETE handler in `frontend/src/app/api/stories/[id]/route.ts` to include `relatedProductId` and `relatedGalleryId` in the response.
+5. Modify DELETE handler in `frontend/src/app/api/gallery/[id]/route.ts` to find and include related story IDs in the response.
 
-## Donation Transparency
-- [ ] Add transparency section to donate page
-- [ ] Include information about Cordillera charities and how donations are used
-- [ ] Add donation impact metrics or stories
-- [ ] Update donation form with better charity information
+## Dependent Files to Edit
+- `frontend/src/lib/data.ts`
+- `frontend/src/app/api/products/[id]/route.ts`
+- `frontend/src/app/api/stories/[id]/route.ts`
+- `frontend/src/app/api/gallery/[id]/route.ts`
 
-## Functional Contact Form
-- [ ] Create API route for sending emails (/api/contact)
-- [ ] Update InquiryForm to send emails via API instead of console.log
-- [ ] Configure nodemailer with email service (Gmail, SendGrid, etc.)
-- [ ] Add email templates for contact form responses
+## Followup Steps
+- Test the delete operations to ensure links are included in responses.
+- Verify that deletions still occur after including links.
 
-## Testing and Validation
-- [ ] Test user registration and email verification
-- [ ] Test gallery filtering functionality
-- [ ] Test contact form email sending
-- [ ] Update any affected components and ensure compatibility
+## Progress
+- [x] Update `IStory` interface in `frontend/src/lib/data.ts` to include `relatedGalleryId?: number;`.
+- [x] Update the `stories` array in `frontend/src/lib/data.ts` to add `relatedGalleryId` to relevant stories.
+- [x] Remove `ai_hint` and `aiHint` properties from products, stories, and gallery items in `frontend/src/lib/data.ts`.
+- [x] Remove the `frontend/src/ai` directory.
+- [x] Modify DELETE handler in `frontend/src/app/api/products/[id]/route.ts` to find and include related story IDs in the response.
+- [x] Modify DELETE handler in `frontend/src/app/api/stories/[id]/route.ts` to include `relatedProductId` and `relatedGalleryId` in the response.
+- [x] Modify DELETE handler in `frontend/src/app/api/gallery/[id]/route.ts` to find and include related story IDs in the response.

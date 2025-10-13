@@ -28,11 +28,6 @@ const navLinks = [
   { href: '/contact', label: 'Contact' },
 ];
 
-const aiToolsLinks = [
-    { href: '/enhance-story', label: 'AI Story Enhancer' },
-    { href: '/design-studio', label: 'AI Design Studio' },
-];
-
 export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -78,19 +73,6 @@ export function Header() {
           {adminLink.map((link) => (
             <NavLink key={link.href} href={link.href} label={link.label} />
           ))}
-           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none">
-              AI Tools
-              <ChevronDown className="h-4 w-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {aiToolsLinks.map(link => (
-                 <DropdownMenuItem key={link.href} asChild>
-                    <Link href={link.href}>{link.label}</Link>
-                 </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
@@ -155,12 +137,6 @@ export function Header() {
                   {adminLink.map((link) => (
                     <NavLink key={link.href} href={link.href} label={link.label} className="text-xl" />
                   ))}
-                  <div className="border-t pt-6">
-                     <h3 className="text-muted-foreground text-base font-semibold mb-2">AI Tools</h3>
-                     {aiToolsLinks.map(link => (
-                        <NavLink key={link.href} href={link.href} label={link.label} className="text-xl" />
-                     ))}
-                  </div>
                   <div className="border-t pt-6">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-muted-foreground">Cart</span>
